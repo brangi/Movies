@@ -1,0 +1,17 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Gibran Rodriguez",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.0",
+    "express-basic-auth": "^1.2.0",
+    "mysql": "^2.17.1"
+  }
+}
