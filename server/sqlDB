@@ -1,0 +1,23 @@
+create movies database;
+
+use movies database;
+
+CREATE TABLE Movie (
+    id int NOT NULL AUTO_INCREMENT,
+    title varchar(255) NOT NULL,
+    year int,
+    genre varchar(255),
+    actors text,
+    rating int,
+    PRIMARY KEY (id)
+);
+
+
+CREATE USER 'movieuser'@'localhost' IDENTIFIED BY 'testingpass';
+
+GRANT ALL PRIVILEGES ON movies TO 'movieuser'@'localhost';
+
+FLUSH PRIVILEGES;
+
+ALTER USER 'movieuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'testingpass';
+
