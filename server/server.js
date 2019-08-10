@@ -8,8 +8,12 @@ const cors = require('cors');
 const {db} = require('./db');
 db.query = util.promisify(db.query);
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 app.post('/movie', async(req, res) => {
+
 });
 
 app.delete('/movie/:id', (req, res) => {
@@ -25,7 +29,8 @@ app.get('/movie/:id', (req, res) => {
 });
 
 app.get('/movies', async(req, res) => {
-
+  const movies = await db.query( 'SELECT * FROM movie');
+  return res.json({ 'movies': movies });
 });
 
 app.get('/search/main', (req, res) => {
