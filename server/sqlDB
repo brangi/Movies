@@ -1,3 +1,4 @@
+ ## RUN FROM ROOT USER
 create movies database;
 
 use movies database;
@@ -13,9 +14,12 @@ CREATE TABLE Movie (
 );
 
 
+
+## RUN FROM ROOT USER
+
 CREATE USER 'movieuser'@'localhost' IDENTIFIED BY 'testingpass';
 
-GRANT ALL PRIVILEGES ON movies TO 'movieuser'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'movieuser'@'localhost';
 
 FLUSH PRIVILEGES;
 

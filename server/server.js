@@ -5,8 +5,8 @@ const util = require('util');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const {db} = require('./db');
-db.query = util.promisify(db.query);
 
+db.query = util.promisify(db.query);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -51,7 +51,6 @@ app.put('/movie/:id', (req, res) => {
   let sql3 = `WHERE id = ${Number(id)}`;
   // final query
   const finalSql = `${sql1}${sql2}${sql3}`;
-  //console.log(finalSql);
   db.query(finalSql, function (err, result) {
     if (err) throw err;
     if(result && result.affectedRows)return res.json({updated:result.affectedRows });
@@ -82,11 +81,9 @@ app.get('/search', async (req, res) => {
     }
   }
   const finalSql = `${sql1}${sql2}${sql3}`;
-  console.log({finalSql});
   const movies = await db.query(finalSql);
   return res.json({ 'movies': movies });
 });
 
 app.listen(1400);
 console.log('======== Server Started on port 1400 ======');
-
