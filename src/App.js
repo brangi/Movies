@@ -16,6 +16,8 @@ import {
 } from './ApiService';
 
 const App = () => {
+
+  //State hooks
   const initialFormState = { id: null, title: '', genre: '', year: '', actors : '', rating: '' };
   const [ movies, setMovies ] = useState([]);
 	const [ currentMovie, setCurrentMovie ] = useState(initialFormState);
@@ -23,23 +25,27 @@ const App = () => {
   const [ searching, setSearching ] = useState(false);
   const [ found, setFound ] = useState('INIT');
 
+  //Add a movie
   const addMovie = async movie => {
     movie = await postMovie(movie);
     setMovies([ ...movies, movie ])
 	};
 
+  //Get all movies
   const getAllMovies = () =>{
     fetchMovies().then(data => {
      setMovies([ ...data.movies ])
     });
   };
 
+  //Delete a movie
 	const deleteMovie = async id => {
 		setEditing(false);
 		const deleteMovie = await removeMovie(id);
 		if(deleteMovie && deleteMovie.deleted) setMovies(movies.filter(movie => movie.id !== id))
 	};
 
+	//Update a movie
 	const updateMovie = async (id, updatedMovie) => {
 		setEditing(false);
 		const currentMovie = movies.find(movie => movie.id === id );
@@ -56,13 +62,15 @@ const App = () => {
     if(movieUpdated && movieUpdated.updated) setMovies(movies.map(movie => (movie.id === id ? updatedMovie : movie)))
 	};
 
+	//Reset UI states
   const addOrSearchBtn = ()=> {
     (searching)? setSearching(false) : setSearching(true);
     setMovies([]);
     setFound('')
   };
 
-	const editMovie = movie => {
+  //Change edit state values
+  const editMovie = movie => {
 		setEditing(true);
     setCurrentMovie(
       { id: movie.id,
@@ -74,22 +82,27 @@ const App = () => {
         poster : movie.poster});
 	};
 
+  //Search a movie
   const searchMovie = async (movie) => {
+
     for(const key in movie) {
       movie[key] = movie[key].trim();
     }
     movie = cleanDeep(movie);
+
     if(!Object.keys(movie).length) return;
     const foundMovies = await search(movie);
 
-    if(foundMovies.movies.length){
+    if (foundMovies.movies.length){
        setFound('FOUND')
-    }else {
+    } else {
        setFound('NOT_FOUND')
     }
+
     setMovies([ ...foundMovies.movies ])
   };
 
+  //Main UI
 	return (
 		<div className="container">
 			<h1>Movies collection CRUD and Search</h1>
