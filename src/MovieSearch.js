@@ -45,10 +45,9 @@ const MovieSearch = props => {
       <input type="text" name="actors" value={movie.actors} onChange={handleInputChange} />
       <label>Rating</label>
       <input type="text" name="rating" value={movie.rating} onChange={handleInputChange} pattern="^(?:[1-9]|0[1-9]|10)$" placeholder="1..10"/>
+      <div style={{color: "red", "fontWeight": "bold" }}>{ searchResult(props.found) }</div>
       <button>Search movie</button>
       </form>
-      <div style={{color: "red", "fontWeight": "bold" }}>{ searchResult(props.found) }
-      </div>
     </div>
 
   )
